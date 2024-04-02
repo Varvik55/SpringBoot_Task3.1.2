@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные о пользователях</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+
+        /* Дополнительные стили для кнопок внутри таблицы */
+        table button {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>СПИСОК ПОЛЬЗОВАТЕЛЕЙ ЗАДАНИЕ 2.3.1</h1>
+
+<a th:href="@{/users}">
+    <button>Начать</button>
+</a>
+</div>
+</body>
+</html>
