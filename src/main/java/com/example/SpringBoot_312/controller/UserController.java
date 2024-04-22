@@ -1,27 +1,34 @@
-package com.example.SpringBoot_312.contriller;
+package com.example.SpringBoot_312.controller;
 
 import com.example.SpringBoot_312.model.User;
 import com.example.SpringBoot_312.service.UserServise;
+
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
-public class AddUserController {
+@Validated
+public class UserController {
 
     private final UserServise userServise;
 
-    public AddUserController(UserServise userServise) {
+    public UserController(UserServise userServise) {
         this.userServise = userServise;
     }
+
+
     @GetMapping(value = "/users")
     public String printWelcome(ModelMap model) {
-
 
         model.addAttribute("people",userServise.getAllUsers());
 
@@ -29,7 +36,7 @@ public class AddUserController {
     }
 
     @GetMapping("/reg")
-    public String AddUsercontr (@RequestParam(name = "id",required = false) Long id,Model model){
+    public String addUser (@RequestParam(name = "id",required = false) Long id, Model model){
         if(id==null) {
             model.addAttribute("user", new User());
         }else {
@@ -39,15 +46,18 @@ public class AddUserController {
         return "reg";
     }
     @PostMapping("/users")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 
-        userServise.createOrUpdate(user);
+        if(bindingResult.hasErrors()){
+            return "reg";
+        }
+            userServise.createOrUpdate(user);
 
         return "redirect:/users";
     }
 
     @GetMapping("/deleteUser")
-    public String deletaGetUser(@RequestParam(name = "id")Long id){
+    public String daleteUser(@RequestParam(name = "id")Long id){
 
         userServise.deleteUser(id);
         return "redirect:/users";

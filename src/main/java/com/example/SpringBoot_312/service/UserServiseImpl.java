@@ -18,36 +18,22 @@ public class UserServiseImpl implements UserServise{
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
     @Override
     public void createOrUpdate(User user) {
-        if (user.getId()==null){
-            userRepository.createUser(user);
-        }else {
-            userRepository.updateUser(user);
-        }
-    }
-
-
-    public void createUser(User user) {
-        userRepository.createUser(user);
-    }
-
-
-    public void updateUser(User user) {
-        userRepository.createUser(user);
+            userRepository.save(user);
     }
 
     @Override
     public User readUser(long id) {
-        return userRepository.readUser(id);
+        return userRepository.getById(id);
     }
 
     @Override
-    public User deleteUser(long id) {
-        return userRepository.deleteUser(id);
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
     }
 
 
